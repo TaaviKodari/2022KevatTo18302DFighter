@@ -954,6 +954,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxhealth: 100
   health: 0
+  isHit: 0
+  myRigidbody: {fileID: 779987005}
 --- !u!1 &855031833
 GameObject:
   m_ObjectHideFlags: 0
