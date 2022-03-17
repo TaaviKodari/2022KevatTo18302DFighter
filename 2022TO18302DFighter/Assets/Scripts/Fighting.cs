@@ -27,7 +27,39 @@ public class Fighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(!blockCheck && !attacking && cooldownTimer <= 0)
+        {
+            if(Input.GetButtonDown("Fire1"))
+            {
+                Punch();
+            }
+
+            if(Input.GetButtonDown("Fire2"))
+            {
+                Kick();
+            }
+        }
+
+        if(Input.GetButtonDown("Fire3"))
+        {
+            Block();
+        }
+
+        if(Input.GetButtonUp("Fire3"))
+        {
+            BlockEnd();
+        }
+
+        if(attacking)
+        {
+            if(cooldownTimer > 0)
+            {
+                cooldownTimer -= Time.deltaTime;
+            }else
+            {
+                attacking = false;
+            }
+        }
     }
 
     void Attack(Transform check, float damage)
@@ -37,11 +69,41 @@ public class Fighting : MonoBehaviour
         {
             foreach(Collider2D enemy in enemyHit)
             {
-                if(enemy.gameObject != this.gameObject){
-                    enemy.GetComponent<Health>().TakeDamage(damage);
+                if(hit == false)
+                {
+                    if(enemy.gameObject != this.gameObject)
+                    {
+                        enemy.GetComponent<Health>().TakeDamage(damage);
+                        hit = true;
+                    }
                 }
             }
+            hit = false;
         }
+        attacking = true;
+        cooldownTimer = cooldown;
+    }
+    
+    private void Punch()
+    {
+        //Do Animation
+        Attack(punchCheck,punchDamage);
+    }
+
+    private void Kick()
+    {
+        //Do Animation
+        Attack(kickCheck, kickDamage);
+    }
+
+    private void Block()
+    {
+        blockCheck = true;
+    }
+
+    private void BlockEnd()
+    {
+        blockCheck = false;
     }
 
     void OnDrawGizmos()

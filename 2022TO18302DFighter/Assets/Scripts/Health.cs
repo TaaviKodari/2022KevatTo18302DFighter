@@ -11,12 +11,14 @@ public class Health : MonoBehaviour
     public bool isHit = false;
     public Rigidbody2D myRigidbody;
     Movement moveScript;
+    Fighting fightingScript;
     private float damage;
 
     // Start is called before the first frame update
     void Start()
     {
         moveScript = GetComponent<Movement>();
+        fightingScript = GetComponent<Fighting>();
         health = maxhealth;
     }
 
@@ -38,8 +40,16 @@ public class Health : MonoBehaviour
     {
         if(!isHit)
         {
-            health -= damage;
-            StartCoroutine(Knockback());
+            if(fightingScript.blockCheck)
+            {
+                health -= damage/2;
+            }
+            else
+            {
+                health -= damage;
+                StartCoroutine(Knockback());
+            }
+           
         }
     }
 
