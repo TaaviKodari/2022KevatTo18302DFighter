@@ -27,6 +27,11 @@ public class Fighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(healthScript.isHit)
+        {
+            return;
+        }
+        
         if(!blockCheck && !attacking && cooldownTimer <= 0)
         {
             if(Input.GetButtonDown("Fire1"))
