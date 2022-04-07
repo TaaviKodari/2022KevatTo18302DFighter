@@ -13,6 +13,7 @@ public class Movement : MonoBehaviour
     private float horizontalMovement = 0f;
     public int facing = 1;
     public LayerMask layerMask;
+    public Animator animator;
     Health healthScript;
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,18 @@ public class Movement : MonoBehaviour
         {
             if(Input.GetButtonDown("Jump") && feet.IsTouchingLayers(layerMask)){
                 myRigidbody2D.AddForce(new Vector2(0f,jumpForce),ForceMode2D.Impulse);
+                animator.SetTrigger("Jump");
+            }
+
+            if(feet.IsTouchingLayers(layerMask))
+            {
+                animator.SetBool("IsTouchingGround", true);
+            }
+            else{
+                animator.SetBool("IsTouchingGround", false);
             }
         }
+
     }
 
     void FixedUpdate()
@@ -37,6 +48,7 @@ public class Movement : MonoBehaviour
         if(!healthScript.isHit)
         {
             myRigidbody2D.velocity = new Vector2(horizontalMovement * speed, myRigidbody2D.velocity.y);
+            animator.SetFloat("Speed",Mathf.Abs(horizontalMovement));
         }
     }
 }
