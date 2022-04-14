@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     public LayerMask layerMask;
     public Animator animator;
     Health healthScript;
+    bool isGrounded;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,20 +26,23 @@ public class Movement : MonoBehaviour
     void Update()
     {
         horizontalMovement = Input.GetAxis("Horizontal");
+        isGrounded = feet.IsTouchingLayers(layerMask);
         if(!healthScript.isHit)
         {
-            if(Input.GetButtonDown("Jump") && feet.IsTouchingLayers(layerMask)){
+            animator.SetBool("IsTouchingGround", isGrounded);
+            if(Input.GetButtonDown("Jump") && isGrounded){
                 myRigidbody2D.AddForce(new Vector2(0f,jumpForce),ForceMode2D.Impulse);
                 animator.SetTrigger("Jump");
             }
-
-            if(feet.IsTouchingLayers(layerMask))
+            
+          /*if(feet.IsTouchingLayers(layerMask))
             {
                 animator.SetBool("IsTouchingGround", true);
             }
             else{
                 animator.SetBool("IsTouchingGround", false);
             }
+            */
         }
 
     }

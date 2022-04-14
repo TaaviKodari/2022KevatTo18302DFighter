@@ -18,10 +18,12 @@ public class Fighting : MonoBehaviour
     private bool hit = false;
     private int chooser;
     Health healthScript;
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         healthScript = GetComponent<Health>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -92,12 +94,14 @@ public class Fighting : MonoBehaviour
     private void Punch()
     {
         //Do Animation
+        animator.SetTrigger("PunchLeft");
         Attack(punchCheck,punchDamage);
     }
 
     private void Kick()
     {
         //Do Animation
+        animator.SetTrigger("KickLeft");
         Attack(kickCheck, kickDamage);
     }
 
