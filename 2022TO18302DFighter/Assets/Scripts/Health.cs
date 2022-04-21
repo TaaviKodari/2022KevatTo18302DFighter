@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +13,7 @@ public class Health : MonoBehaviour
     Movement moveScript;
     Fighting fightingScript;
     private float damage;
-
+    public bool isDummy;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +49,7 @@ public class Health : MonoBehaviour
                 health -= damage;
                 StartCoroutine(Knockback());
             }
-           
+            Debug.Log("Health: " + health);
         }
     }
 

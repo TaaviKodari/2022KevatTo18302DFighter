@@ -30,9 +30,13 @@ public class Movement : MonoBehaviour
         if(!healthScript.isHit)
         {
             animator.SetBool("IsTouchingGround", isGrounded);
-            if(Input.GetButtonDown("Jump") && isGrounded){
-                myRigidbody2D.AddForce(new Vector2(0f,jumpForce),ForceMode2D.Impulse);
-                animator.SetTrigger("Jump");
+            if(Input.GetButtonDown("Jump") && isGrounded)
+            {
+                if(!healthScript.isDummy)
+                {
+                    myRigidbody2D.AddForce(new Vector2(0f,jumpForce),ForceMode2D.Impulse);
+                    animator.SetTrigger("Jump");
+                }
             }
             
           /*if(feet.IsTouchingLayers(layerMask))
@@ -51,8 +55,11 @@ public class Movement : MonoBehaviour
     {
         if(!healthScript.isHit)
         {
-            myRigidbody2D.velocity = new Vector2(horizontalMovement * speed, myRigidbody2D.velocity.y);
-            animator.SetFloat("Speed",Mathf.Abs(horizontalMovement));
+            if(!healthScript.isDummy)
+            {
+                myRigidbody2D.velocity = new Vector2(horizontalMovement * speed, myRigidbody2D.velocity.y);
+                animator.SetFloat("Speed",Mathf.Abs(horizontalMovement));
+            }
         }
     }
 }
