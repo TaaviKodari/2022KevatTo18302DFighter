@@ -25,6 +25,10 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(healthScript.isAlive == false)
+        {
+            return;
+        }
         horizontalMovement = Input.GetAxis("Horizontal");
         isGrounded = feet.IsTouchingLayers(layerMask);
         if(!healthScript.isHit)
@@ -53,6 +57,12 @@ public class Movement : MonoBehaviour
 
     void FixedUpdate()
     {
+
+        if(healthScript.isAlive == false)
+        {
+            return;
+        }
+
         if(!healthScript.isHit)
         {
             if(!healthScript.isDummy)

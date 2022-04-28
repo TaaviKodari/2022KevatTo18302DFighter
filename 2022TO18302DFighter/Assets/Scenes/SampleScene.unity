@@ -1034,7 +1034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f12af060882d9b64686348e9c5aa8b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  punchDamage: 2
+  punchDamage: 200
   kickDamage: 3
   blockCheck: 0
   punchCheck: {fileID: 744338508}

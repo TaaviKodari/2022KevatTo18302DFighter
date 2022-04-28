@@ -29,6 +29,12 @@ public class Fighting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(healthScript.isAlive == false)
+        {
+            return;
+        }
+
         if(healthScript.isHit)
         {
             return;

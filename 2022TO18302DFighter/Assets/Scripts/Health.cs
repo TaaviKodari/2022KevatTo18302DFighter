@@ -14,12 +14,16 @@ public class Health : MonoBehaviour
     Fighting fightingScript;
     private float damage;
     public bool isDummy;
+    public bool isAlive{get; private set;}
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         moveScript = GetComponent<Movement>();
         fightingScript = GetComponent<Fighting>();
+        animator = GetComponent<Animator>();
         health = maxhealth;
+        isAlive = true;
     }
 
     // Update is called once per frame
@@ -34,10 +38,21 @@ public class Health : MonoBehaviour
     private void Die()
     {
        //Tee kuoleminen
+       if(isAlive == true)
+       {
+            animator.SetTrigger("Die");
+            isAlive = false;
+       }
     }
 
     public void TakeDamage(float damage)
     {
+
+        if(isAlive == false)
+        {
+            return;
+        }
+
         if(!isHit)
         {
             if(fightingScript.blockCheck)
