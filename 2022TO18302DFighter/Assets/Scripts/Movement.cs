@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Movement : MonoBehaviour
     public Animator animator;
     Health healthScript;
     bool isGrounded;
+    public Transform enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +31,9 @@ public class Movement : MonoBehaviour
         {
             return;
         }
+
+        CheckFacing();
+
         horizontalMovement = Input.GetAxis("Horizontal");
         isGrounded = feet.IsTouchingLayers(layerMask);
         if(!healthScript.isHit)
@@ -53,6 +58,38 @@ public class Movement : MonoBehaviour
             */
         }
 
+    }
+
+    private void CheckFacing()
+    {
+        Vector3 direction  = (enemy.position - transform.position).normalized;
+        Debug.DrawRay(transform.position,direction, Color.green);
+        
+        if(healthScript.isDummy)
+        {
+
+        }
+        else{
+            Debug.Log("Direction: " + direction.x);
+            if(facing == 1)
+            {
+               if(direction.x < -0.5f){
+                   Flip();
+               }
+            }
+            else{
+                 if(direction.x > 0.5f){
+                   Flip();
+               }
+            }
+        }
+    }
+
+    private void Flip()
+    {
+        Debug.Log("Käänny");
+        transform.localScale = new Vector2(transform.localScale.x *-1, transform.localScale.y);
+        facing = (int)transform.localScale.x;
     }
 
     void FixedUpdate()

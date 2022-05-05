@@ -114,14 +114,31 @@ public class Fighting : MonoBehaviour
     private void Punch()
     {
         //Do Animation
-        animator.SetTrigger("PunchLeft");
+
+        chooser = UnityEngine.Random.Range(0,2);
+        if(chooser== 1)
+        {
+            animator.SetTrigger("PunchLeft");
+        }
+        else
+        {
+            animator.SetTrigger("PunchRight");
+        }
         Attack(punchCheck,punchDamage);
     }
 
     private void Kick()
     {
+           chooser = UnityEngine.Random.Range(0,2);
+           if(chooser == 1)
+           {
+               animator.SetTrigger("KickLeft");
+           }
+           else{
+               animator.SetTrigger("KickRight");
+           }
         //Do Animation
-        animator.SetTrigger("KickLeft");
+        
         Attack(kickCheck, kickDamage);
     }
 
